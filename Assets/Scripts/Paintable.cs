@@ -21,6 +21,7 @@ public class Paintable : MonoBehaviour {
     public Renderer getRenderer() => rend;
 
     void Start() {
+        /* Create 4 RenderTextures */
         maskRenderTexture = new RenderTexture(TEXTURE_SIZE, TEXTURE_SIZE, 0);
         maskRenderTexture.filterMode = FilterMode.Bilinear;
 
@@ -33,7 +34,12 @@ public class Paintable : MonoBehaviour {
         supportTexture = new RenderTexture(TEXTURE_SIZE, TEXTURE_SIZE, 0);
         supportTexture.filterMode =  FilterMode.Bilinear;
 
+        /* Get the Renderer e.g. a Mesh Renderer */
         rend = GetComponent<Renderer>();
+
+        /* Set the texture of the renderer material to be the newly created
+         * extendIslandsRenderTexture and give it the same ID as the maskID 
+         * of the Shader's (e.g. Paintable shader) mask. */
         rend.material.SetTexture(maskTextureID, extendIslandsRenderTexture);
 
         PaintManager.instance.initTextures(this);
